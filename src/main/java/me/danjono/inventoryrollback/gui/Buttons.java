@@ -29,6 +29,7 @@ public class Buttons {
     private static final Material health = Material.getMaterial(InventoryRollback.getVersion().equals(VersionName.v1_13_PLUS) ? "MELON_SLICE" : "MELON");
     private static final Material hunger = Material.ROTTEN_FLESH;
     private static final Material experience = Material.getMaterial(InventoryRollback.getVersion().equals(VersionName.v1_13_PLUS) ? "EXPERIENCE_BOTTLE" : "EXP_BOTTLE");
+    private static final Material economy = Material.getMaterial(InventoryRollback.getVersion().equals(VersionName.v1_13_PLUS) ? "GOLD_INGOT" : "GOLD_INGOT");
 
     public static ItemStack getPageSelectorIcon() {
         return new ItemStack(pageSelector);
@@ -52,6 +53,10 @@ public class Buttons {
 
     public static ItemStack getExperienceIcon() {
         return new ItemStack(experience);
+    }
+
+    public static ItemStack getEconomy() {
+        return new ItemStack(economy);
     }
 
     public ItemStack nextButton(String displayName, UUID uuid, LogType logType, int page, List<String> lore) {
@@ -348,6 +353,29 @@ public class Buttons {
         nbt.setString("uuid", uuid.toString());
         nbt.setString("logType", logType.name());
         nbt.setFloat("xp", xp);
+        item = nbt.setItemData();
+
+        return item;
+    }
+
+    public ItemStack coinButton(UUID uuid, LogType logType, float economy) {
+        ItemStack item = new ItemStack(getEconomy();
+        MessageData messages = new MessageData();
+
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(MessageData.restoreExperience);
+
+        List<String> lore = new ArrayList<>();
+        lore.add(messages.restoreExperienceLevel((int) RestoreInventory.getLevel(xp) + ""));
+        meta.setLore(lore);
+
+        item.setItemMeta(meta);
+
+        NBT nbt = new NBT(item);
+
+        nbt.setString("uuid", uuid.toString());
+        nbt.setString("logType", logType.name());
+        nbt.setFloat("economy", economy);
         item = nbt.setItemData();
 
         return item;
