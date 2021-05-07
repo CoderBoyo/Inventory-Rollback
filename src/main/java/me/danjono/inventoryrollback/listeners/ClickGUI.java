@@ -92,26 +92,32 @@ public class ClickGUI implements Listener {
 
         //Listener for player menu
         if (title.equals(InventoryName.MAIN_MENU.getName())) {
+            e.setCancelled(true);
             mainMenu(e);
+            
         }
 
         //Listener for player menu
         else if (title.equals(InventoryName.PLAYER_MENU.getName())) {
+            e.setCancelled(true);
             playerMenu(e);
         }
 
         //Listener for rollback list menu
         else if (title.equals(InventoryName.ROLLBACK_LIST.getName())) {
+            e.setCancelled(true);
             rollbackMenu(e);
         }
 
         //Listener for main inventory backup menu
         else if (title.equals(InventoryName.MAIN_BACKUP.getName())) {
+            e.setCancelled(true);
             mainBackupMenu(e);
         }
 
         //Listener for enderchest backup menu
         else if (title.equals(InventoryName.ENDER_CHEST_BACKUP.getName())) {
+            e.setCancelled(true);
             enderChestBackupMenu(e);
         }
 
@@ -132,7 +138,7 @@ public class ClickGUI implements Listener {
 
                 //Selected to go back to main menu
                 MainMenu menu = new MainMenu(staff, page);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::getMainMenu);
             } 
@@ -140,13 +146,13 @@ public class ClickGUI implements Listener {
             else {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(nbt.getString("uuid")));
                 PlayerMenu menu = new PlayerMenu(staff, offlinePlayer);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::getPlayerMenu);
             }
         } else {
             if (e.getRawSlot() >= e.getInventory().getSize() && !e.isShiftClick()) {
-                e.setCancelled(false);
+                e.setCancelled(true);
             }
         }
     }
@@ -166,20 +172,20 @@ public class ClickGUI implements Listener {
             //Clicked player head
             if (e.getRawSlot() == 0) {
                 MainMenu menu = new MainMenu(staff, 1);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::getMainMenu);
             } else {
                 LogType logType = LogType.valueOf(nbt.getString("logType"));
                 RollbackListMenu menu = new RollbackListMenu(staff, offlinePlayer, logType, 1);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::showBackups);
             }
 
         } else {
             if (e.getRawSlot() >= e.getInventory().getSize() && !e.isShiftClick()) {
-                e.setCancelled(false);
+                e.setCancelled(true);
             }
         }
     }
@@ -203,7 +209,7 @@ public class ClickGUI implements Listener {
                 //If the backup file is invalid it will return null, we want to catch it here
                 try {
                     MainInventoryBackupMenu menu = new MainInventoryBackupMenu(staff, data, location);
-
+                    e.setCancelled(true);
                     staff.openInventory(menu.getInventory());
                     Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::showBackupItems);
                 } catch (NullPointerException e1) {}
@@ -217,21 +223,21 @@ public class ClickGUI implements Listener {
                 if (page == 0) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(nbt.getString("uuid")));
                     PlayerMenu menu = new PlayerMenu(staff, player);
-
+                    e.setCancelled(true);
                     staff.openInventory(menu.getInventory());
                     Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::getPlayerMenu);
                 } else {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(nbt.getString("uuid")));
                     LogType logType = LogType.valueOf(nbt.getString("logType"));
                     RollbackListMenu menu = new RollbackListMenu(staff, player, logType, page);
-
+                    e.setCancelled(true);
                     staff.openInventory(menu.getInventory());
                     Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::showBackups);
                 }
             }	
         } else {
             if (e.getRawSlot() >= e.getInventory().getSize() && !e.isShiftClick()) {
-                e.setCancelled(false);
+                e.setCancelled(true);
             }
         }
     }
@@ -254,7 +260,7 @@ public class ClickGUI implements Listener {
             //Click on page selector button to go back to rollback menu
             if (icon.getType().equals(Buttons.getPageSelectorIcon())) {
                 RollbackListMenu menu = new RollbackListMenu(staff, offlinePlayer, logType, 1);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::showBackups);
             }
@@ -318,7 +324,7 @@ public class ClickGUI implements Listener {
                 data.getAllBackupData();
 
                 EnderChestBackupMenu menu = new EnderChestBackupMenu(staff, data);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::showEnderChestItems);
             } 
@@ -417,7 +423,7 @@ public class ClickGUI implements Listener {
             if (icon.getType().equals(Buttons.getPageSelectorIcon())) {           
                 String location = data.getWorld() + "," + data.getX() + "," + data.getY() + "," + data.getZ();
                 MainInventoryBackupMenu menu = new MainInventoryBackupMenu(staff, data, location);
-
+                e.setCancelled(true);
                 staff.openInventory(menu.getInventory());
                 Bukkit.getScheduler().runTaskAsynchronously(InventoryRollback.getInstance(), menu::showBackupItems);
             }
@@ -441,7 +447,7 @@ public class ClickGUI implements Listener {
         } else {             
             if (((e.getRawSlot() < (e.getInventory().getSize() - 9) || e.getRawSlot() >= e.getInventory().getSize()) && !e.isShiftClick())
                     || (e.getRawSlot() < (e.getInventory().getSize() - 9) && e.isShiftClick())) {
-                e.setCancelled(false);
+                e.setCancelled(true);
             }
         }
     }
