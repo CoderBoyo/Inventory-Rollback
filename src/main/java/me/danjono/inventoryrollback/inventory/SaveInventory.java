@@ -84,7 +84,7 @@ public class SaveInventory {
         data.saveData();
     }
 
-    //Conversion to Base64 code courtesy of github.com/JustRayz	
+    //Conversion to Base64 code courtesy of github.com/JustRayz	:D
     public static String toBase64(Inventory inventory) {
         return toBase64(inventory.getContents());
     }

@@ -41,6 +41,7 @@ public class ClickGUI implements Listener {
 
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent e) {
+        //Fixed drag events
         //Cancel listener if the event is not for an EpicFishing GUI menu
         String title = e.getView().getTitle();
         if (!title.equals(InventoryName.MAIN_MENU.getName()) 
@@ -54,7 +55,7 @@ public class ClickGUI implements Listener {
 
         //Check if inventory is a virtual one and not one that has the same name on a player chest
         if (InventoryRollback.getVersion() != VersionName.V1_8 && isLocationAvailable(e.getInventory().getLocation())) {
-            e.setCancelled(false);
+            e.setCancelled(true);
             return;
         }
 
@@ -71,6 +72,7 @@ public class ClickGUI implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        //Fixed click events
         String title = e.getView().getTitle();
         if (!title.equals(InventoryName.MAIN_MENU.getName()) 
                 && !title.equals(InventoryName.PLAYER_MENU.getName()) 
