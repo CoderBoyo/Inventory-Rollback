@@ -42,7 +42,6 @@ public class Buttons {
     private static final Material enderChest = Material.ENDER_CHEST;
     private static final Material health = InventoryRollback.getVersion().equals(VersionName.V1_13_PLUS) ? Material.MELON_SLICE : Material.getMaterial("MELON");
     private static final Material hunger = Material.ROTTEN_FLESH;
-<<<<<<< HEAD
     private static final Material experience = InventoryRollback.getVersion().equals(VersionName.V1_13_PLUS) ? Material.EXPERIENCE_BOTTLE : Material.getMaterial("EXP_BOTTLE");
     private static final Material restoreAllInventory = Material.NETHER_STAR;
 
@@ -77,10 +76,6 @@ public class Buttons {
     public static Material getPageSelectorIcon() {
         return pageSelector;
     }
-=======
-    private static final Material experience = Material.getMaterial(InventoryRollback.getVersion().equals(VersionName.v1_13_PLUS) ? "EXPERIENCE_BOTTLE" : "EXP_BOTTLE");
-    private static final Material economy = Material.getMaterial(InventoryRollback.getVersion().equals(VersionName.v1_13_PLUS) ? "GOLD_INGOT" : "GOLD_INGOT");
->>>>>>> fe6397a5aba826073486f191e0a5a5e9e71967a0
 
     public static Material getTeleportLocationIcon() {
         return teleport;
@@ -106,17 +101,8 @@ public class Buttons {
         return restoreAllInventory;
     }
 
-<<<<<<< HEAD
     public ItemStack nextButton(String displayName, LogType logType, int page, List<String> lore) {
         ItemStack button = new ItemStack(getPageSelectorIcon());
-=======
-    public static ItemStack getEconomy() {
-        return new ItemStack(economy);
-    }
-
-    public ItemStack nextButton(String displayName, UUID uuid, LogType logType, int page, List<String> lore) {
-        ItemStack button = getPageSelectorIcon();
->>>>>>> fe6397a5aba826073486f191e0a5a5e9e71967a0
         BannerMeta meta = (BannerMeta) button.getItemMeta();
 
         List<Pattern> patterns = new ArrayList<>();
@@ -541,24 +527,11 @@ public class Buttons {
         return item;
     }
 
-<<<<<<< HEAD
     public ItemStack restoreAllInventory(LogType logType, Long timestamp) {       
         ItemStack item = new ItemStack(getRestoreAllInventoryIcon());
 
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.RED + "Overwrite player inventory with backup");
-=======
-    public ItemStack coinButton(UUID uuid, LogType logType, float economy) {
-        ItemStack item = new ItemStack(getEconomy();
-        MessageData messages = new MessageData();
-
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(MessageData.restoreExperience);
-
-        List<String> lore = new ArrayList<>();
-        lore.add(messages.restoreExperienceLevel((int) RestoreInventory.getLevel(xp) + ""));
-        meta.setLore(lore);
->>>>>>> fe6397a5aba826073486f191e0a5a5e9e71967a0
 
         item.setItemMeta(meta);
 
@@ -566,11 +539,7 @@ public class Buttons {
 
         nbt.setString("uuid", uuid.toString());
         nbt.setString("logType", logType.name());
-<<<<<<< HEAD
         nbt.setLong("timestamp", timestamp);
-=======
-        nbt.setFloat("economy", economy);
->>>>>>> fe6397a5aba826073486f191e0a5a5e9e71967a0
         item = nbt.setItemData();
 
         return item;
